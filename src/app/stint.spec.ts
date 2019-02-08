@@ -43,6 +43,10 @@ describe('Stint', () => {
     newStint.setEndingFuel(21.3);
     expect(newStint.getAverageFuelBurn()).toEqual(2.28);
   });
+  it('should report tire wear rate', () => {
+    newStint.setEndingTire(94);
+    expect(newStint.getTireWearRate()).toEqual(1);
+  })
   
   
 });

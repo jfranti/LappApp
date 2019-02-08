@@ -8,6 +8,8 @@ export class Stint {
     public inlaps: Inlap[] = [];
     public startingFuel: number;
     public endingFuel: number;
+    public startingTire: number = 100;
+    public endingTire: number;
 
     constructor(public tire: string, public fuel: number = 0) {
         this.startingFuel = fuel;
@@ -21,13 +23,22 @@ export class Stint {
         this.endingFuel = fuel;
     }
 
+    setEndingTire(newTire: number) {
+        this.endingTire = newTire;
+    }
+
+    getTireWearRate() {
+        let lapCount = this.laps.length + this.inlaps.length + this.outlaps.length + 1;
+        return ((this.startingTire - this.endingTire) / lapCount);
+    }
+
     getTotalFuelUsed() {
         return this.startingFuel-this.endingFuel;
     }
 
     getAverageFuelBurn() {
         let lapCount = this.laps.length + this.inlaps.length + this.outlaps.length + 1;
-        return Math.round((this.getTotalFuelUsed() / lapCount) * 100) / 100;
+        return Math.round((this.getTotalFuelUsed() / lapCount)*100)/100;
     }
 
     addLap(newLap: Lap) {
