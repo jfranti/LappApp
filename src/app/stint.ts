@@ -1,4 +1,5 @@
 import { Lap, Outlap, Inlap } from './lap';
+import { endTimeRange } from '@angular/core/src/profile/wtf_impl';
 
 export class Stint {
     
@@ -8,7 +9,26 @@ export class Stint {
     public startingFuel: number;
     public endingFuel: number;
 
-    constructor(public tire: string, public fuel: number = 0){}
+    constructor(public tire: string, public fuel: number = 0) {
+        this.startingFuel = fuel;
+    }
+
+    setStartingFuel(fuel: number) {
+        this.startingFuel = fuel;
+    }
+
+    setEndingFuel(fuel: number) {
+        this.endingFuel = fuel;
+    }
+
+    getTotalFuelUsed() {
+        return this.startingFuel-this.endingFuel;
+    }
+
+    getAverageFuelBurn() {
+        let lapCount = this.laps.length + this.inlaps.length + this.outlaps.length + 1;
+        return Math.round((this.getTotalFuelUsed() / lapCount) * 100) / 100;
+    }
 
     addLap(newLap: Lap) {
         this.laps.push(newLap);
@@ -46,8 +66,6 @@ export class Stint {
         return minutes.toString() + ":" + seconds.toString();
 
     }
-
-
 
     getAverageLaptime() {
         let totalLaptime: number = 0;

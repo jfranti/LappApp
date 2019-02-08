@@ -33,7 +33,16 @@ describe('Stint', () => {
     newStint.addLap(new Lap("1:00.23"));
     expect(newStint.getTotalTimeInString()).toEqual("6:53.23");
   });
-
-
-
+  it('should report fuel used', () => {
+    newStint.setStartingFuel(35);
+    newStint.setEndingFuel(21.3);
+    expect(newStint.getTotalFuelUsed()).toEqual(13.7);
+  });
+  it('should report fuel used per lap', () => {
+    newStint.setStartingFuel(35);
+    newStint.setEndingFuel(21.3);
+    expect(newStint.getAverageFuelBurn()).toEqual(2.28);
+  });
+  
+  
 });
