@@ -1,4 +1,16 @@
-import { Lap } from './lap';
+import { Lap, Outlap, Inlap } from './lap';
+
+describe('Outlap', () => {
+  it('should create an instance', () => {
+    expect(new Outlap('0:0.0')).toBeTruthy();
+  });
+});
+
+describe('Inlap', () => {
+  it('should create an instance', () => {
+    expect(new Inlap('0:0.00')).toBeTruthy();
+  });
+});
 
 describe('Lap', () => {
   it('should create an instance', () => {

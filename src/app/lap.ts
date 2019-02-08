@@ -18,3 +18,10 @@ export class Lap {
         return (parseFloat(this.lapTimeString.match(/.+?(?=:)/).toString())*60)+parseFloat(this.lapTimeString.match(/(?<=:).*/).toString());
     }
 }
+
+export class Inlap extends Lap {
+}
+
+export class Outlap extends Lap {
+}
+
