@@ -1,7 +1,8 @@
 import { Stint } from './stint';
 
 export class Session {
-    constructor(public stints: Stint[]){}
+    public stints: Stint[];
+    constructor(){}
 
     addStint(newStint: Stint){
         this.stints.push(newStint);
