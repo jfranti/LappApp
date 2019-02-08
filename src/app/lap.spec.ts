@@ -9,6 +9,10 @@ describe('Lap', () => {
     expect (new Lap("1:29.100")).toBeTruthy();
   })
 
+  it('should not accept a string', () => {
+    expect(new Lap("hello").timeInSeconds()).toEqual(0);
+  })
+
   it('should convert a string of 1 second to seconds', () => {
     expect (new Lap('0:01.00').timeInSeconds()).toEqual(1);
   })
@@ -20,6 +24,5 @@ describe('Lap', () => {
   it('should convert a string of 1 minute 1 second and 23 hundreths to seconds', () => {
     expect(new Lap('1:01.023').timeInSeconds()).toEqual(61.023);
   })
-
 
 });

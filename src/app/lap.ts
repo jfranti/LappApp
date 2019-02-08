@@ -1,22 +1,20 @@
+import { flattenStyles } from '@angular/platform-browser/src/dom/dom_renderer';
+
 export class Lap {
-    constructor(public lapTimeString: string){}
+    constructor(public lapTimeString: string){this.validateInput();}
 
-    timeInSeconds(){
-        let minutes;
-        let seconds;
-        minutes = parseFloat(this.lapTimeString.match(/.+?(?=:)/).toString()); 
-        seconds = parseFloat(this.lapTimeString.match(/(?<=:).*/).toString()); 
+    validateInput(){
+        try {
+            if (!parseFloat(this.lapTimeString.match(/.+?(?=:)/).toString()) || !parseFloat(this.lapTimeString.match(/(?<=:).*/).toString())) {
+                return false;
+            }
+            return true;
+        } catch (error) {
+            this.lapTimeString = "0:0.0";
+        }
+    }
 
-        console.log("seconds raw: " + this.lapTimeString.match(/(?<=:).*/));
-        console.log("minutes: " + minutes);
-        console.log("seconds: " + seconds);
-        
-        
-        let totalTime = parseFloat((minutes*60)+seconds);
-        console.log(totalTime);
-        
-        
-        return totalTime;
-
+    timeInSeconds(){    
+        return (parseFloat(this.lapTimeString.match(/.+?(?=:)/).toString())*60)+parseFloat(this.lapTimeString.match(/(?<=:).*/).toString());
     }
 }
