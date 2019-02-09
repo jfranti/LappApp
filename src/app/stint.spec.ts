@@ -1,11 +1,12 @@
 import { Stint } from './stint';
 import { Outlap, Lap, Inlap } from './lap';
+import { RaceStint } from './race-stint';
 
 describe('Stint', () => {
 
     let newStint;
   beforeEach(() => {
-    newStint = new Stint("hard", 12);
+    newStint = new Stint("hard");
     newStint.addOutlap(new Outlap("1:30.000"));
     newStint.addLap(new Lap("0:59.00"));
     newStint.addLap(new Lap("1:01.00"));
@@ -46,6 +47,15 @@ describe('Stint', () => {
   it('should report tire wear rate', () => {
     newStint.setEndingTire(94);
     expect(newStint.getTireWearRate()).toEqual(1);
+  });
+  it('should compute a race stint', () => {
+    let exampleRaceStint = new RaceStint(7,12,"hard", 519.75);
+    newStint.setStartingFuel(20);
+    newStint.setEndingFuel(8);
+    newStint.setEndingTire(78);
+    newStint.addLap(new Lap("1:57"));
+    let fuelCapacity = 15;
+    expect(newStint.findMaximumStint(fuelCapacity)).toEqual(exampleRaceStint);
   })
   
   

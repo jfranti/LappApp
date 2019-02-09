@@ -1,5 +1,5 @@
 import { Lap, Outlap, Inlap } from './lap';
-import { endTimeRange } from '@angular/core/src/profile/wtf_impl';
+import { RaceStint } from './race-stint';
 
 export class Stint {
     
@@ -11,9 +11,25 @@ export class Stint {
     public startingTire: number = 100;
     public endingTire: number;
 
-    constructor(public tire: string, public fuel: number = 0) {
-        this.startingFuel = fuel;
+    constructor(public tire: string) {}
+
+    findMaximumStint(fuelCapacity: number) {
+        let avglap = this.getAverageLaptime();
+        let avgfuel = this.getAverageFuelBurn();
+        let avgtire = this.getTireWearRate();
+        let laps = 0;
+        let fuel = 0;
+        let tire = this.tire;
+        let maxLapsTire = Math.floor(90/avgtire);
+        let maxLapsFuel = Math.floor((fuelCapacity-avgfuel)/avgfuel);
+        while(laps < maxLapsFuel && laps < maxLapsTire) {
+            laps += 1;
+            fuel += avgfuel;            
+        }
+        let time = laps * avglap;
+        return new RaceStint(laps, Math.ceil(fuel), tire, time);
     }
+
 
     setStartingFuel(fuel: number) {
         this.startingFuel = fuel;
